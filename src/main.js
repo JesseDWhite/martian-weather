@@ -26,13 +26,11 @@ function getPhotoElements(response) {
 $(document).ready(function () {
     $("#main-page").submit(function (event) {
         event.preventDefault();
-        $('#photo').submit(function (event) {
-            event.preventDefault();
-            const roverName = $('#roverName').val();
-            const earthDate = $('#earthDate').val();
-            $('#roverName').val("");
-            $('#earthDate').val("");
-        })
+        const roverName = $('#roverName').val();
+        const earthDate = $('#earthDate').val();
+        $('#roverName').val("");
+        $('#earthDate').val("");
+
 
         WeatherService.getWeather()
             .then(function (response) {

@@ -17,7 +17,7 @@ module.exports = {
         new Dotenv(),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            title: 'Martian Weather',
+            title: 'mar-weather',
             template: './src/index.html',
             inject: 'body'
         })
