@@ -3,6 +3,7 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
 import WeatherService from './js/weather-service.js'
+import Photos from './js/photos.js'
 
 function getElements(response) {
     if (response[845]) {
@@ -14,13 +15,33 @@ function getElements(response) {
     }
 }
 
+function getPhotoElements(response) {
+    if (response.photos[0].img_src) {
+        $("#displayImage").html(`<img src=${response.photo[0].img_src}>`);
+    } else {
+        $("#show-errors").text(`${response}`);
+    }
+}
+
 $(document).ready(function () {
     $("#main-page").submit(function (event) {
         event.preventDefault();
+        $('#photo').submit(function (event) {
+            event.preventDefault();
+            const roverName = $('#roverName').val();
+            const earthDate = $('#earthDate').val();
+            $('#roverName').val("");
+            $('#earthDate').val("");
+        })
 
         WeatherService.getWeather()
             .then(function (response) {
                 getElements(response)
+            });
+
+        Photos.getPhotoElements(roverName, earthDate)
+            .then(function (response) {
+                getElements(response);
             });
     });
 });
