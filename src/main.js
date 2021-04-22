@@ -6,40 +6,48 @@ import WeatherService from './js/weather-service.js'
 import Photos from './js/photos.js'
 
 function getElements(response) {
-    if (response[845]) {
-        $("#date-today").text(`This data was pulled from ${Date(response[845].First_UTC)}`)
-        $("#season").text(`The current season is: ${response[845].Northern_season}`)
-        $("#pressure-elements").html(`<li>${response[845].PRE.av}</li> <li>${response[845].PRE.ct}</li> <li>${response[845].PRE.mn}</li> <li>${response[845].PRE.mx}</li>`)
+    if (response[849]) {
+        $("#date-today").text(`This data was pulled from ${Date(response[849].First_UTC)}`)
+        $("#season").text(`The current season is: ${response[849].Northern_season}`)
+        $("#pressure-elements").html(`<li>${response[849].PRE.av}</li> <li>${response[849].PRE.ct}</li> <li>${response[849].PRE.mn}</li> <li>${response[849].PRE.mx}</li>`)
     } else {
-        $("#show-errors").text(`${response}`)
+        $("#show-weather-errors").text(`${response}`)
     }
 }
 
 function getPhotoElements(response) {
-    if (response.photos[0].img_src) {
-        $("#displayImage").html(`<img src=${response.photo[0].img_src}>`);
+    if (response.photos[0] === undefined) {
+        $("#show-photo-errors").text("There are no photos for this day")
+    }
+    else if (response.photos[0].img_src) {
+        $("#displayImage").html(`<img src=${response.photos[0].img_src}>`);
     } else {
-        $("#show-errors").text(`${response}`);
+        $("#show-photo-errors").text(`${response}`);
     }
 }
 
+function addTodayInput() {
+    let today = new Date().toISOString().slice(0, 10);
+    $('#input').append(`<input type="date" id="earthDate" class="form-control" value="${today}">`);
+}
+
 $(document).ready(function () {
+    addTodayInput();
+    WeatherService.getWeather()
+        .then(function (response) {
+            getElements(response)
+        });
     $("#main-page").submit(function (event) {
         event.preventDefault();
+        $("#show-photo-errors").val("");
         const roverName = $('#roverName').val();
         const earthDate = $('#earthDate').val();
         $('#roverName').val("");
         $('#earthDate').val("");
 
-
-        WeatherService.getWeather()
+        Photos.getPhotos(roverName, earthDate)
             .then(function (response) {
-                getElements(response)
-            });
-
-        Photos.getPhotoElements(roverName, earthDate)
-            .then(function (response) {
-                getElements(response);
+                getPhotoElements(response);
             });
     });
 });
