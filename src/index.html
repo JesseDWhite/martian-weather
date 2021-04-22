@@ -5,36 +5,41 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./../../assests/img/icon.png">
+    <!-- <link rel="icon" href="https://miro.medium.com/fit/c/128/128/1*ds6iXWSFwycgEjbhZiCB4A.png" data-rh="true"> -->
     <title>mars-weather</title>
 </head>
 
 <body>
-    <h1>Welcome to Mars</h1>
+    <h1>Welcome to Mars 🚀</h1>
     <div class="container">
-        <div id="show-weather-errors"></div>
-        <form id="main-page">
-            <p id="date-today"></p>
-            <p id="season"></p>
-            <div id="pressure-info">
-                <ul id="pressure-elements">
-
-                </ul>
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Today's Weather:</h2>
+                <div id="show-weather-errors"></div>
+                <form id="main-page">
+                    <p id="date-today"></p>
+                    <p id="season"></p>
+                    <div id="pressure-elements">
+                    </div>
+                    <div id="input">
+                        <label for="roverName">Rover To Search For</label>
+                        <select name="roverSelect" id="roverName" class="form-control mb-3">
+                            <option value="curiosity">Curiosity</option>
+                            <option value="opportunity">Opportunity</option>
+                            <option value="spirit">Spirit</option>
+                        </select>
+                        <!-- <input type="date" id="earthDate" class="form-control" value="2021-04-22"> -->
+                    </div>
+                    <button type="submit" class="btn mt-3 mb-3" id="submit-button">Get photos from Mars!</button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <div id="displayImage"></div>
+                <div id="show-photo-errors"></div>
 
             </div>
-            <div id="input">
-                <label for="roverName">Rover To Search For</label>
-                <select name="roverSelect" id="roverName" class="form-control mb-3">
-                    <option value="curiosity">Curiosity</option>
-                    <option value="opportunity">Opportunity</option>
-                    <option value="spirit">Spirit</option>
-                </select>
-                <!-- <input type="date" id="earthDate" class="form-control" value="2021-04-22"> -->
-            </div>
-            <button type="submit" class="btn btn-primary mt-3 mb-3">Get Weather and Photos</button>
-        </form>
-        <div id="show-photo-errors"></div>
-        <div id="displayImage"></div>
-
+        </div>
     </div>
 </body>
 
